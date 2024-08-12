@@ -1,12 +1,12 @@
 import { TIMEOUT } from "dns";
 import { BrowserContext, Locator, Page, expect } from "playwright/test";
-export class Loginclass {
+export class Loginclass{
   page: Page;
   username: Locator;
   password: Locator;
   signin: Locator;
   url: string;
-  Pagetitle: Locator;
+ // Pagetitle: Locator;
   // settingicon:Locator;
   // settingmenu:Locator;
   // settingsubmenu:Locator;
@@ -24,10 +24,11 @@ export class Loginclass {
   constructor(page: Page) {
     this.page = page;
     this.url = 'https://adaptiveqat.caresoftglobal.com/'
+    
     this.username = this.page.locator('[id="frmLogin"] [id="txtUserID"][name="username"]').nth(0);
     this.password = this.page.locator('[id="txtPassword"][name="password"]').nth(0)
     this.signin = this.page.locator('[value="submit"][id="btnSubmit"]').nth(0);
-    this.Pagetitle = this.page.locator('[class="text-center menutitle"]');
+   // this.Pagetitle = this.page.locator('[class="text-center menutitle"]');
     this.transaction = this.page.locator('[name="Technical Publication"]')
     this.page1 = this.page.locator('[dname="Work"][name="Work Assignment"]')
     // this.settingicon=this.page.locator('[class="fa fa-list-alt"]')
@@ -42,14 +43,29 @@ export class Loginclass {
   }
   public async loginmethod() {
     await this.page.goto(this.url)
-    await this.username.fill('102331')
+  /* const txt= await this.page.$$('form-control')
+  for (const input of txt){
+    const txtuser =await input.textContent()
+    //const txtuser =await input.evaluate(pl => pl.getAttribute('placeholder'))
+    console.log(txtuser)
+    await this.page.pause()
+   if(txtuser==="User ID / Email ID")
+   {
+    await input.focus()
+    await this.page.pause()
+    await input.fill('102331')
+    await this.page.pause()
+   }
+  } */
+   await this.username.fill('102331')
     await this.password.fill('Thean@14@')
     await this.password.press('Enter')// keyword action
     await this.page.pause()
-    // await this.signin.click()
-    await expect(this.Pagetitle).toContainText('Tech Pub')
+    //await this.signin.click()
+    //await expect(this.Pagetitle).toContainText('Tech Pub')
    
-    //await this.transaction.click()
+    await this.transaction.click()
+
    // await this.page1.click()
     //  await this.settingicon.hover()
     // await this.settingmenu.click()

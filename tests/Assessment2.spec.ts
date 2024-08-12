@@ -1,7 +1,6 @@
 import { test, expect } from '@playwright/test';
-import { Ass2class } from '../src/pages/ass2-page';
-
+import { sampleclass } from '../src/pages/sample-page';
 test('has title', async ({ page }) => {
-    const logObj=new Ass2class(page)
-    await logObj.ass2method()
+    const logObj=new sampleclass(page)
+    await logObj.samplemethod()
   })

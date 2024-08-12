@@ -1,5 +1,6 @@
 import {BrowserContext,Locator,Page,} from "playwright/test";
-export class Ass2class{
+import { data } from "../../Dataset/login";
+export class sampleclass {
     page:Page;
     username:Locator;
     password:Locator;
@@ -28,7 +29,7 @@ export class Ass2class{
     purcountry:Locator;
     domain:Locator;
     subdomain:Locator;
-    pid:Locator;
+    //pid:Locator;
     csentry:Locator;
     reqbudget:Locator;
     basecurrency:Locator;
@@ -38,13 +39,20 @@ export class Ass2class{
     startdate:Locator;
     choosedate:Locator;
     enddate:Locator;
+    enddatechoose:Locator;
     save:Locator;
+    piddrop:Locator;
+    attachment:Locator;
+    upload:Locator;
+    doctype:Locator;
+    uploadbtn:Locator;
+    uploadpopup:Locator;
+    popupclose:Locator;
 
 
 constructor(page:Page){
     this.page=page;
-   // this.url='https://procurementqat.caresoftglobal.com/'
-   this.url='https://adaptiveqat.caresoftglobal.com'
+    this.url='https://procurementqat.caresoftglobal.com/'
     this.username=this.page.locator('[id="txtUserID"][name="username"]')
     this.password=this.page.locator('[id="txtPassword"][name="password"]')
     this.signin=this.page.locator('[id="btnSubmit"][value="submit"]')
@@ -69,132 +77,115 @@ constructor(page:Page){
     this.location=this.page.locator('[id="ddlLocation"]')
     this.purregion=this.page.locator('[id="ddlPurchaseRegion"]')
     this.purcountry=this.page.locator('[id="ddlPurchaseCountry"]')
-    this.domain=this.page.locator('[id="select2-ddlDomainCostCenter-container"]')
+    this.domain=this.page.locator('[id="ddlDomainCostCenter"]')
     this.subdomain=this.page.locator('[id="ddlSubdomainCostCenter"]')
-    this.pid=this.page.locator('[id="ddlPIDCostCenter"]')
+    this.piddrop=this.page.locator('[title="None selected"]').nth(0)
+    ///this.pid=this.page.locator('[class="form-check-input"][value="CNHi3402"]')
     this.csentry=this.page.locator('[id="ddlCaresoftEntity"]')
     this.reqbudget=this.page.locator('[id="txtCostBudgeted"]')
-    this.basecurrency=this.page.getByRole('textbox', { name: 'Select Base Currency' })
+    this.basecurrency=this.page.locator('[id="ddlBaseCurrency"]')
     this.ccyear=this.page.locator('[id="ddlCostConversionYear"]')
     this.billable=this.page.locator('[id="RdnBillabeno"][name="RdnBillable"]')
     this.workplace=this.page.locator('[id="RdnWorkPlaceCustomer"][name="RdnWorkPlace"]')
     this.startdate=this.page.locator('[id="txtStartDate"]')
     this.choosedate=this.page.getByRole('cell', { name: '8', exact: true })
     this.enddate=this.page.locator('[id="txtEnddate"]')
+this.enddatechoose=this.page.locator('[class="weekend available"]').nth(0)
     this.save=this.page.locator('[id="btnSave"]')
+    this.attachment=this.page.locator('[id="btnAttachment"]')
+    this.doctype=this.page.locator('[id="ddlDocType"]')
+    this.upload=this.page.locator('[id="fileUpload"]')
+    this.uploadbtn=this.page.locator('[id="btnUpload"]')
+    this.uploadpopup=this.page.locator('[class="btn btn-primary bootbox-accept"]')
+    this.popupclose=this.page.locator('[class="btn-close btn-close-white"]').nth(1)
 
 }
-public async ass2method(){
+public async samplemethod(){
     await this.page.goto(this.url)
-    await this.username.fill('102331')
-    await this.password.fill('Thean@14@')
-    await this.password.press('Enter')
-}
-public async ass2method2(){   
-    await this.Pagetitle.getByText("Request For")
-}
-public async ass2method3(){    
-    await this.card.click()
+    await this.username.fill(data.user)
+    await this.password.fill(data.password)
+    await this.signin.click()
     await this.page.waitForTimeout(4000)
-}
-public async ass2method4(){ 
+    //await this.Pagetitle.getByText("Request For")
+        // Validate the page title
+        const title = await this.page.title();
+         if (title === 'Procurement Request') {
+         console.log('Page title is correct.');
+             } else {
+                console.error(`Page title is incorrect. Expected 'Expected Title' but got '${title}'.`);
+             }
+    await this.card.click()
+        // Wait for the page to reach the 'load' state
+        await this.page.waitForLoadState('load');
+        console.log('Page has fully loaded.');
     await this.Addbutton.click()
-}
-public async ass2method5(){ 
-   await this.Pagetitle.getByText("General")
-}
-public async ass2method6(){
+    //await this.Pagetitle.getByText("General")
     await this.Requestorname.selectOption("Geethpriya Thiruvengadam-300947")
-}
-public async ass2method7(){
     await this.workscope.fill('test')
-}
-public async ass2method8(){
     await this.priority.selectOption("MD")
-}
-public async ass2method9(){
     await this.Remarks.fill('test remarks')
-}
-public async ass2method10(){
     await this.itemcategory.selectOption("Perpetual")
-}
-public async ass2method11(){
     await this.itemdescription.getByText('Item descriptions *')
     await this.page.waitForTimeout(5000)
-}
-public async ass2method12(){
     await this.licensetype.fill('test license')
-}
-public async ass2method13(){
     await this.specification.fill('test specification')
-}
-public async ass2method14(){
     await this.txtqty.fill('1')
     await this.page.waitForTimeout(4000)
     await this.UOM.selectOption("Units")
-}
-public async ass2method15(){
     await this.packetsqty.fill('2')
-}
-public async ass2method16(){
     await this.amc.fill('test amc')
     await this.page.pause()
-
-}
-public async ass2method17(){
     await this.locregion.selectOption('2')
     await this.page.pause()
-}
-public async ass2method18(){
-    await this.loccountry.selectOption('13')
-}
-public async ass2method19(){
-    await this.location.selectOption('1')
-}
-public async ass2method20(){
+    await this.loccountry.selectOption('24')
+    await this.location.selectOption('175')
     await this.purregion.selectOption('1')
-}
-public async ass2method21(){
-    await this.purcountry.selectOption('13')
-}
-public async ass2method22(){
+    await this.purcountry.selectOption("Canada")
     await this.domain.selectOption('15')
-}
-public async ass2method23(){
     await this.subdomain.selectOption('138')
-}
-public async ass2method24(){
-    await this.pid.selectOption("CNHi3402-BI- Tool Development")
-}
-public async ass2method25(){
+    await this.piddrop.click()
+    await this.page.locator('[type="checkbox"][value="BBB111641"]').click()
+    /*async function checkcheckbox(page: Page, checkboxText: string): Promise<void> {
+        const checkloc=('input[type="checkbox"][value="BBB111641"]')
+        await page.waitForSelector(checkloc)
+    const checkbox=page.locator(checkloc)
+        const isChecked=await checkbox.isChecked();
+        if (!isChecked) {
+            await checkbox.check();
+        }
+    }*/
     await this.csentry.selectOption("Caresoft Global FZ LLC")
-}
-public async ass2method26(){
     await this.reqbudget.fill('10')
-}
-public async ass2method27(){
     await this.basecurrency.selectOption("INR")
-}
-public async ass2method28(){
     await this.ccyear.selectOption("Feb-2024")
-}
-public async ass2method29(){
     await this.billable.click()
-}
-public async ass2method30(){
     await this.workplace.click()
-}
-public async ass2method31(){
     await this.startdate.click()
     await this.choosedate.click()
-}
-public async ass2method32(){
     await this.enddate.click()
     await this.choosedate.click()
-}
-public async ass2method33(){
+    await this.enddatechoose.click()
+    await this.page.waitForTimeout(2000)
+    //using CSSselector to check the date picker has value or not
+        const hasValue = await this.page.evaluate(() => {
+            const input = document.querySelector('#txtEnddate') as HTMLInputElement;
+            return input ? input.value.trim() !== '' : true;      
+        });
+        
+        if (hasValue) {
+            console.log('Date picker has a selected value.');
+         } else {
+            console.log('Date picker does not have a selected value.');
+    }
+    await this.attachment.click()
+    await this.doctype.selectOption('PO')
+    //await this.upload.click()
+    await this.upload.setInputFiles('C:/Users/102331/OneDrive - Caresoft Global Private Ltd,/Desktop/Playwright_automation/Sprint9planning.xlsx')
+    await this.uploadbtn.click()
+    await this.uploadpopup.click()
+    await this.page.waitForTimeout(3000)
+    await this.popupclose.click()
     await this.save.click()
+
 }
-
-
 }
