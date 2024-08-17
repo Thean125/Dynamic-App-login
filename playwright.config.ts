@@ -1,5 +1,4 @@
 import { defineConfig, devices } from '@playwright/test';
-//import {defineBddConfig} from 'playwright-bdd';
 import { defineBddConfig } from 'playwright-bdd';
 
 /**
@@ -12,19 +11,14 @@ import { defineBddConfig } from 'playwright-bdd';
 /**
  * See https://playwright.dev/docs/test-configuration.
  */
-
 const testDir=defineBddConfig({
   paths:['features/*.feature'],
   require:['steps/*.ts'],
- //importTestFrom:'steps/fixtures/fixture.ts',
+ importTestFrom:'steps/fixtures/fixture.ts',
 });
 module.exports=defineConfig({
-  testDir:'tests',
+  testDir,
   timeout:80000,
-  
-   
-
-
   /* Run tests in files in parallel */
   fullyParallel: false,
   /* Fail the build on CI if you accidentally left test.only in the source code. */
@@ -34,18 +28,16 @@ module.exports=defineConfig({
   /* Opt out of parallel tests on CI. */
   workers: process.env.CI ? 1 : undefined,
   /* Reporter to use. See https://playwright.dev/docs/test-reporters */
-  reporter: [['html']],
+  reporter: [['html'],['allure-playwright']],
   /* Shared settings for all the projects below. See https://playwright.dev/docs/api/class-testoptions. */
   use: {
     /* Base URL to use in actions like `await page.goto('/')`. */
-     //baseURL: "https://adaptiveqat.caresoftglobal.com/",
+    // baseURL: 'http://127.0.0.1:3000',
 
     /* Collect trace when retrying the failed test. See https://playwright.dev/docs/trace-viewer */
     trace:'on',
-   // video:'on'
-   video:'on',
+    video:'on',
    headless: false
-    
   },
 
   /* Configure projects for major browsers */
@@ -55,15 +47,15 @@ module.exports=defineConfig({
       use: { ...devices['Desktop Chrome'] },
     },
 
-    // {
-    //   name: 'firefox',
-    //   use: { ...devices['Desktop Firefox'] },
-    // },
+   // {
+   //   name: 'firefox',
+   //   use: { ...devices['Desktop Firefox'] },
+   // },
 
-    // {
-    //   name: 'webkit',
-    //   use: { ...devices['Desktop Safari'] },
-    // },
+   // {
+   //   name: 'webkit',
+   //   use: { ...devices['Desktop Safari'] },
+   // },
 
     /* Test against mobile viewports. */
     // {
